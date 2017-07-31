@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "969813913995",
+    "firebase_url": "https://brewtour-66745.firebaseio.com",
+    "project_id": "brewtour-66745",
+    "storage_bucket": "brewtour-66745.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969813913995:android:b40beb72be5ab1fc",
+        "android_client_info": {
+          "package_name": "com.brewtourmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969813913995-u7afepc9njecodnscre21d0n833akdaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm-XpA3MzCVuTlbhiNpikbEtXgGQP0CgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
