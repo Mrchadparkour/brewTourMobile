@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, StyleSheet, AsyncStorage, TextInput, ScrollView, View, Text} from 'react-native';
+import {Button, StyleSheet, TextInput, ScrollView, View, Text} from 'react-native';
 import axios from 'axios';
 import Map from './map';
+import DisplayBreweries from './DisplayBreweries';
 
 export default class DropdownText extends React.Component {
   constructor() {
@@ -9,9 +10,9 @@ export default class DropdownText extends React.Component {
     this.state = {
       searchValue: '',
       placetype: '',
-      latArr: [],
+      lat: 38.8880,
       brewObjList: [],
-      lngArr: [],
+      lng: -121.0162,
       resArray: []
     };
   }
@@ -28,6 +29,10 @@ export default class DropdownText extends React.Component {
       this.setState({searchValue: val});
   }
 
+  getAverage(arr) {
+      return arr.sort((a,b) => b - a).slice(2, arr.length - 3).reduce((a, b) => a + b) / (arr.length-5);
+  }
+
   handleData(res) {
     const brewObjList = res.data.data;
     const latArr = [];
@@ -38,8 +43,8 @@ export default class DropdownText extends React.Component {
     });
     this.setState({
       brewObjList:brewObjList,
-      latArr: latArr,
-      lngArr: lngArr,
+      lat: this.getAverage(latArr),
+      lng: this.getAverage(lngArr),
     });
   }
 
@@ -58,43 +63,21 @@ export default class DropdownText extends React.Component {
   render() {
     return(
       <View>
-      <Text>{this.state.placetype}</Text>
         <TextInput
           placeholder="Search by City or State"
           onChangeText={val => this.onChange(val)}
           value={this.state.searchValue}
           returnKeyType="search"
         />
-        <ScrollView style={styles.dropper}>
+        <ScrollView>
           {this.state.resArray.map((el, i) =>
             <View key={el[0] + i}>
               <Text onPress={this.onSubmit.bind(this, el[0], el[1])}>{el[0]}</Text>
             </View>)}
-          <ScrollView horizontal={true}>
-            {this.state.brewObjList.map((brewObj, i) =>
-              <View style={styles.card} key={brewObj + i}>
-                <Text>{brewObj.brewery.name}</Text>
-              </View>)}
-          </ScrollView>
         </ScrollView>
-        <View>
-          <Map lat={this.state.latArr} lng={this.state.lngArr} brewObjList={this.state.brewObjList} />
-        </View>
+        <DisplayBreweries brewObjList={this.state.brewObjList} />
       </View>
 
     );
   }
 }
-const styles = StyleSheet.create({
-  dropper: {
-    minHeight: 100,
-  },
-  card:{
-    borderWidth: 1,
-    borderColor: '#000000',
-    borderRadius: 4,
-    margin: 2,
-    height:100,
-    width: 75,
-  }
-});

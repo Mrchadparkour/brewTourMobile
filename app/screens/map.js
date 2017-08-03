@@ -5,39 +5,24 @@ import MapView from 'react-native-maps';
 export default class Map extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      lat: 38.8880,
-      lng: -121.0162
+      region : {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
     };
-  }
-  getAverage(arr) {
-      return arr.sort((a,b) => b - a).slice(2, arr.length - 3).reduce((a, b) => a + b) / (arr.length-5);
-  }
-
-  componentDidMount() {
-    if (this.props.lat.length > 0) {
-      this.setState({
-        lat: this.getAverage(this.props.lat),
-        lng: this.getAverage(this.props.lat),
-      });
-    }
-
   }
 
   render() {
-
     return(
       <View style={styles.container}>
-      <Text>{this.props.lat}</Text>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: this.state.lat,
-          longitude: this.state.lng,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+        <MapView
+          style={styles.map}
+          region={this.state.region}
+        />
       </View>
     );
   }
