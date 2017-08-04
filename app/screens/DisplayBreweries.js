@@ -1,5 +1,7 @@
+//DisplayBreweries.js
 import React from 'react';
 import {ScrollView, Dimensions, StyleSheet, Image, Text, View} from 'react-native';
+import BrewButtons from './BrewButtons';
 
 export default class DisplayBreweries extends React.Component {
   constructor(props) {
@@ -7,13 +9,16 @@ export default class DisplayBreweries extends React.Component {
   }
 
   render() {
-    console.log(this.props.brewObjList[1].brewery);
-    return(
+    return ((this.props.brewObjList.length === 0) ? <Text> Try Searching for  a City or State to get your BrewTour started</Text> :
       <ScrollView contentContainerStyle={styles.container}>
       {this.props.brewObjList.map((brewObj, i) =>
         <View style={styles.card} key={brewObj + i}>
-          <Image style={styles.breweryLogo} source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
-          <Text>{brewObj.brewery.name}</Text>
+          <Image style={styles.breweryLogo} source={{uri: (brewObj.brewery.images) ? brewObj.brewery.images.icon : 'https://facebook.github.io/react/img/logo_og.png'}} />
+          <View style={styles.CardDisplay}>
+            <Text>{brewObj.brewery.name}</Text>
+            <Text>{brewObj.streetAddress}</Text>
+            <BrewButtons />
+          </View>
         </View>)}
       </ScrollView>
     );
@@ -21,19 +26,24 @@ export default class DisplayBreweries extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  CardDisplay: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   card: {
-    borderWidth: 1,
+    backgroundColor:'white',
+    margin: 10,
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     height: 200,
-    borderColor: '#000000',
   },
   name: {
     flex: 1,
   },
   contentContainer: {
+    backgroundColor: '#5CB1FF',
     justifyContent: 'flex-end',
     alignItems: 'center',
     margin: 1,

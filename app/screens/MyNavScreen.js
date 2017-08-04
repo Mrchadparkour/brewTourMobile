@@ -1,3 +1,4 @@
+//MyNavScreen.js
 import React from 'react';
 import { Button, Platform, ScrollView, StyleSheet, Text } from 'react-native';
 import { onSignOut } from "../auth";
