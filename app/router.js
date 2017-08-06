@@ -6,7 +6,7 @@ import Home from './screens/Home';
 import BrewerySearch from './screens/BrewerySearch';
 import SignUp from "./screens/SignUp";
 import SignIn from "./screens/SignIn";
-import Map from './screens/map';
+
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -45,9 +45,6 @@ export const SignedIn = DrawerNavigator(
         drawerLabel: "Search City and State",
       }
     },
-    MapRes: {
-      screen: Map
-    },
   },
   {
     initialRouteName: 'BrewerySearch',
@@ -58,7 +55,7 @@ export const SignedIn = DrawerNavigator(
   }
 );
 
-export const createRootNavigator = (signedIn = false) => {
+export const createRootNavigator = (signedIn) => {
   return StackNavigator(
     {
       SignedIn: {

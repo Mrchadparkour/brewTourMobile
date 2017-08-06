@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, StyleSheet, TextInput, ScrollView, View, Text} from 'react-native';
 import axios from 'axios';
-import Map from './map';
 import DisplayBreweries from './DisplayBreweries';
 
 export default class DropdownText extends React.Component {

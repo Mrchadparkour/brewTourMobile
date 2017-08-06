@@ -4,12 +4,7 @@ import { Button, Platform, ScrollView, StyleSheet, Text } from 'react-native';
 import { onSignOut } from "../auth";
 
 export default class MyNavScreen extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
-    console.info('yes');
     const { navigate } = this.props.navigation;
     const { goBack } = this.props.navigation;
     return(

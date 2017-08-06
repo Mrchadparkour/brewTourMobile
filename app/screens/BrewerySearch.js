@@ -5,18 +5,13 @@ import { Text, View, Dimensions, TextInput, StyleSheet } from 'react-native';
 import MyNavScreen from './MyNavScreen';
 import axios from 'axios';
 import DropdownText from './DropdownText';
-import Map from './map';
-
 
 export default class BrewerySearch extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return(
       <View style={styles.container}>
         <DropdownText />
+        <MyNavScreen navigation={this.props.navigation}/>
       </View>
     );
   }
