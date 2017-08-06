@@ -56,6 +56,7 @@ export const SignedIn = DrawerNavigator(
 );
 
 export const createRootNavigator = (signedIn) => {
+  console.log(signedIn);
   return StackNavigator(
     {
       SignedIn: {

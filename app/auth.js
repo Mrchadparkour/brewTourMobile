@@ -5,20 +5,16 @@ export const USER_KEY = "auth-demo-key";
 
 export const onSignIn = (email, password) => {
   firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-    AsyncStorage.setItem(USER_KEY, user.uid);
+    AsyncStorage.setItem(USER_KEY, user.uid).then(() => console.log('success'));
   })
 };
 
 export const onSignOut = async() => {
-  try {
-    await AsyncStorage.removeItem(USER_KEY);
-  }catch(error) {
-    console.error(error);
-  }
+    await AsyncStorage.removeItem(USER_KEY).then(() => console.log('Item removed'));
 };
 
-export const isSignedIn = () => {
-  AsyncStorage.getItem(USER_KEY).then((value) => {
-    (value !== null) ? true : false;
-  });
+export const isSignedIn = async () => {
+  let value;
+  AsyncStorage.getItem(USER_KEY).then((value) => value = value);
+  console.log(value);
 };
