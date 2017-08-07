@@ -10,7 +10,6 @@ export default class App extends React.Component {
       loaded: false,
       auth: false
     };
-    console.log(USER_KEY)
   }
 
   _loadInitialState = async () => {

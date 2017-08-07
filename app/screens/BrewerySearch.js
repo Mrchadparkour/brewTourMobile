@@ -11,7 +11,6 @@ export default class BrewerySearch extends React.Component {
     return(
       <View style={styles.container}>
         <DropdownText />
-        <MyNavScreen navigation={this.props.navigation}/>
       </View>
     );
   }
@@ -19,6 +18,8 @@ export default class BrewerySearch extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#C9E5FF',
+    display: 'flex',
+    justifyContent: 'space-between',
     height: Dimensions.get('window').height,
   }
 });

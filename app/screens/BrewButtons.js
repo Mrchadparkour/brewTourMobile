@@ -4,11 +4,14 @@ import React from 'react';
 import {View, StyleSheet, Button} from 'react-native';
 
 export default class DisplayBreweries extends React.Component {
+
+  
+
   render() {
     return(
       <View style={styles.container}>
-        <Button style={styles.MapButton} title="Map"/>
-        <Button style={styles.TourButton} title="Add to Tour"/>
+        <Button onPress={() => alert("You STill need a map modal dingus")} style={styles.MapButton} title="Map"/>
+        <Button onPress={() => alert('Save the brewery!')} style={styles.TourButton} title="Add to Tour"/>
       </View>
     );
   }

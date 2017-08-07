@@ -12,9 +12,3 @@ export const onSignIn = (email, password) => {
 export const onSignOut = async() => {
     await AsyncStorage.removeItem(USER_KEY).then(() => console.log('Item removed'));
 };
-
-export const isSignedIn = async () => {
-  let value;
-  AsyncStorage.getItem(USER_KEY).then((value) => value = value);
-  console.log(value);
-};

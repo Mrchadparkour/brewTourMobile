@@ -63,6 +63,9 @@ export default class DropdownText extends React.Component {
     return(
       <View>
         <TextInput
+          style={styles.SearchBar}
+          underlineColorAndroid='transparent'
+          underlineText={false}
           placeholder="Search by City or State"
           onChangeText={val => this.onChange(val)}
           value={this.state.searchValue}
@@ -71,7 +74,7 @@ export default class DropdownText extends React.Component {
         <ScrollView>
           {this.state.resArray.map((el, i) =>
             <View key={el[0] + i}>
-              <Text onPress={this.onSubmit.bind(this, el[0], el[1])}>{el[0]}</Text>
+              <Text style={styles.searchRes} onPress={this.onSubmit.bind(this, el[0], el[1])}>{el[0]}</Text>
             </View>)}
         </ScrollView>
         <DisplayBreweries brewObjList={this.state.brewObjList} />
@@ -80,3 +83,21 @@ export default class DropdownText extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  SearchBar : {
+    color: 'white',
+    padding: 3,
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 5,
+  },
+  searchRes : {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 5,
+  },
+})

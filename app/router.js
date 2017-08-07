@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Platform, StatusBar} from 'react-native';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import MyNavScreen from './screens/MyNavScreen';
-import Home from './screens/Home';
+import Profile from './screens/Profile';
 import BrewerySearch from './screens/BrewerySearch';
 import SignUp from "./screens/SignUp";
 import SignIn from "./screens/SignIn";
@@ -29,20 +29,20 @@ export const SignedOut = StackNavigator({
   }
 });
 
-export const SignedIn = DrawerNavigator(
+export const SignedIn = TabNavigator(
   {
-    Home: {
+    Profile: {
       path: '/',
-      screen: Home,
+      screen: Profile,
       navigationOptions: {
-        drawerLabel: "Home",
+        tabLabel: "Profile",
       }
     },
     BrewerySearch: {
       path: '/sent',
       screen: BrewerySearch,
       navigationOptions: {
-        drawerLabel: "Search City and State",
+        tabLabel: "Search City and State",
       }
     },
   },
