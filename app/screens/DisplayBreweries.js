@@ -1,6 +1,7 @@
 //DisplayBreweries.js
 import React from 'react';
 import {ScrollView, Dimensions, StyleSheet, Image, Text, View} from 'react-native';
+import MapView from 'react-native-maps';
 import BrewButtons from './BrewButtons';
 
 export default class DisplayBreweries extends React.Component {
@@ -10,6 +11,7 @@ export default class DisplayBreweries extends React.Component {
 
   render() {
     return ((this.props.brewObjList.length === 0) ? <Text> Try Searching for  a City or State to get your BrewTour started</Text> :
+    <View>
       <ScrollView contentContainerStyle={styles.container}>
       {this.props.brewObjList.map((brewObj, i) =>
         <View style={styles.card} key={brewObj + i}>
@@ -17,10 +19,11 @@ export default class DisplayBreweries extends React.Component {
           <View style={styles.CardDisplay}>
             <Text>{brewObj.brewery.name}</Text>
             <Text>{brewObj.streetAddress}</Text>
-            <BrewButtons />
+            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude}/>
           </View>
         </View>)}
       </ScrollView>
+    </View>
     );
   }
 }
@@ -52,5 +55,5 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 5,
-  }
+  },
 });

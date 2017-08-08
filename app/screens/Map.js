@@ -1,30 +1,39 @@
 //Map.js
+
+//Need to add in Marker in map
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Modal, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import MapView from 'react-native-maps';
 
-export default class Map extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      region : {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-    };
-  }
-
+export default class Profile extends React.Component {
   render() {
+    const {lat, lng, visible} = this.props;
+    const region = {
+      latitude: lat,
+      longitude: lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }
     return(
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          region={this.state.region}
-        />
-      </View>
+      <View>
+        <Modal
+             animationType={"slide"}
+             transparent={true}
+             visible={this.props.visible}
+             onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+          <View style={styles.container}>
+            <MapView
+              style={styles.map}
+              region={region}
+            />
+          </View>
+          <TouchableHighlight>
+                 <Text>Hide Modal</Text>
+          </TouchableHighlight>
+      </Modal>
+     </View>
+
     );
   }
 }
@@ -33,12 +42,16 @@ export default class Map extends React.Component {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    height: 500,
-    margin: 1,
+    margin: 60,
+
+    backgroundColor: 'rgba(255, 255, 255, .5)',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    height: 500,
+    width: 300,
   },
 });
