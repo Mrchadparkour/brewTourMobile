@@ -1,4 +1,5 @@
 //Map.js
+//Parent is BrewButons.js
 
 //Need to add in Marker in map
 import React from 'react';
@@ -7,13 +8,17 @@ import MapView from 'react-native-maps';
 
 export default class Profile extends React.Component {
   render() {
-    const {lat, lng, visible} = this.props;
+    const {lat, lng, visible, name} = this.props;
     const region = {
       latitude: lat,
       longitude: lng,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta: 0.0052,
+      longitudeDelta: 0.0210,
     }
+    const latlng = {
+        latitude: lat,
+        longitude: lng
+      }
     return(
       <View>
         <Modal
@@ -26,9 +31,14 @@ export default class Profile extends React.Component {
             <MapView
               style={styles.map}
               region={region}
+            >
+            <MapView.Marker
+              coordinate={latlng}
+              title={name}
             />
+            </MapView>
           </View>
-          <TouchableHighlight>
+          <TouchableHighlight onPress={() => this.props.toggleMap()}>
                  <Text>Hide Modal</Text>
           </TouchableHighlight>
       </Modal>

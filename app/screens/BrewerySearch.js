@@ -17,7 +17,7 @@ export default class BrewerySearch extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#C9E5FF',
+    backgroundColor: 'black',
     display: 'flex',
     justifyContent: 'space-between',
     height: Dimensions.get('window').height,

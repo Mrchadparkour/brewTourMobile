@@ -7,6 +7,8 @@ export default class DropdownText extends React.Component {
   constructor() {
     super();
     this.state = {
+      noBrewMessage: 'Click on the textfield to get your BrewTour started!',
+      placeholder: 'Search by City or State',
       searchValue: '',
       placetype: '',
       lat: 38.8880,
@@ -33,6 +35,7 @@ export default class DropdownText extends React.Component {
   }
 
   handleData(res) {
+    if (!res.data.data) return this.setState({noBrewMessage: "We don't have any breweries listed there..., Help us out by adding to our database in the Add Brewery page!"})
     const brewObjList = res.data.data;
     const latArr = [];
     const lngArr = [];
@@ -48,36 +51,42 @@ export default class DropdownText extends React.Component {
   }
 
   onSubmit(name, type){
-    this.setState({resArray: [], searchValue: name});
+    this.setState({resArray: [], searchValue:name});
     (type === 'locality') ?
-      axios.get('https://api.brewerydb.com/v2/locations?key=5d2a32cf36729810ffae82e7193a9769&locality=' + name).then(res => {
+      axios.get('https://api.brewerydb.com/v2/locations?key=5d2a32cf36729810ffae82e7193a9769&locality=' + name.replace(/\W+/g, '')).then(res => {
         this.handleData(res);
       })
       :
-      axios.get('https://api.brewerydb.com/v2/locations?key=5d2a32cf36729810ffae82e7193a9769&region=' + name).then(res => {
+      axios.get('https://api.brewerydb.com/v2/locations?key=5d2a32cf36729810ffae82e7193a9769&region=' + name.replace(/\W+/g, '')).then(res => {
         this.handleData(res);
       });
   }
 
   render() {
+     let {resArray} = this.state;
+     console.log(resArray);
     return(
       <View>
         <TextInput
           style={styles.SearchBar}
           underlineColorAndroid='transparent'
-          underlineText={false}
-          placeholder="Search by City or State"
+          underlineText={true}
+          placeholder={this.state.placeholder}
+          placeholderTextColor='#ffffff'
+          onFocus={() =>this.setState({placeholder:''})}
+          onBlur={() => this.setState({placeholder:'Search by City or State'})}
           onChangeText={val => this.onChange(val)}
+          onSubmitEditing={(resArray.length > 0 ) ? this.onSubmit.bind(this,resArray[0][0],resArray[0][1]): console.log('No Array')}
           value={this.state.searchValue}
           returnKeyType="search"
         />
         <ScrollView>
-          {this.state.resArray.map((el, i) =>
+          {resArray.map((el, i) =>
             <View key={el[0] + i}>
               <Text style={styles.searchRes} onPress={this.onSubmit.bind(this, el[0], el[1])}>{el[0]}</Text>
             </View>)}
         </ScrollView>
-        <DisplayBreweries brewObjList={this.state.brewObjList} />
+        <DisplayBreweries brewObjList={this.state.brewObjList} noBrewMessage={this.state.noBrewMessage} />
       </View>
 
     );
@@ -87,7 +96,12 @@ export default class DropdownText extends React.Component {
 const styles = StyleSheet.create({
   SearchBar : {
     color: 'white',
+    textShadowColor: 'black',
+    textShadowOffset: {height: 1,width: 1},
+    textDecorationLine: 'none',
     padding: 3,
+    borderBottomWidth: 3,
+    borderBottomColor: '#4CA5FF',
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -95,6 +109,8 @@ const styles = StyleSheet.create({
   },
   searchRes : {
     color: 'white',
+    textShadowColor: 'black',
+    textShadowOffset: {height: 1,width: 1},
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',

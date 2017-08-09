@@ -10,7 +10,7 @@ export default class DisplayBreweries extends React.Component {
   }
 
   render() {
-    return ((this.props.brewObjList.length === 0) ? <Text> Try Searching for  a City or State to get your BrewTour started</Text> :
+    return ((this.props.brewObjList.length === 0) ? <Text>{this.props.noBrewMessage}</Text> :
     <View>
       <ScrollView contentContainerStyle={styles.container}>
       {this.props.brewObjList.map((brewObj, i) =>
@@ -19,7 +19,7 @@ export default class DisplayBreweries extends React.Component {
           <View style={styles.CardDisplay}>
             <Text>{brewObj.brewery.name}</Text>
             <Text>{brewObj.streetAddress}</Text>
-            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude}/>
+            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude} name={brewObj.brewery.name}/>
           </View>
         </View>)}
       </ScrollView>
