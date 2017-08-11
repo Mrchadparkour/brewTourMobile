@@ -3,7 +3,7 @@
 
 import React from 'react';
 import {View,Text, StyleSheet, Button} from 'react-native';
-import MapModal from './Map';
+import MapModal from './MapModal';
 
 
 export default class BrewButtons extends React.Component {
@@ -20,10 +20,10 @@ export default class BrewButtons extends React.Component {
   }
 
   render() {
-    const {lat, lng, name} = this.props;
+    const {lat, lng, name, description, website} = this.props;
     return(
       <View style={styles.container}>
-        <MapModal lat={lat} lng={lng} visible={this.state.modalVisible} toggleMap={this.toggleMap} name={name} />
+        <MapModal lat={lat} lng={lng} visible={this.state.modalVisible} toggleMap={this.toggleMap} name={name} description={description} website={website} />
         <Button onPress={() => this.toggleMap()} style={styles.MapButton} title="Map"/>
         <Button onPress={() => alert('Save the brewery!')} style={styles.TourButton} title="Add to Tour"/>
       </View>

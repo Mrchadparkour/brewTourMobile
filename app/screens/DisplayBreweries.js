@@ -19,7 +19,7 @@ export default class DisplayBreweries extends React.Component {
           <View style={styles.CardDisplay}>
             <Text>{brewObj.brewery.name}</Text>
             <Text>{brewObj.streetAddress}</Text>
-            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude} name={brewObj.brewery.name}/>
+            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude} name={brewObj.brewery.name} description={brewObj.brewery.description} website={brewObj.brewery.website}/>
           </View>
         </View>)}
       </ScrollView>
