@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, StyleSheet, TextInput, ScrollView, View, Text} from 'react-native';
 import axios from 'axios';
+import CreateTour from './CreateTour';
 import DisplayBreweries from './DisplayBreweries';
 
 export default class DropdownText extends React.Component {
@@ -14,7 +15,8 @@ export default class DropdownText extends React.Component {
       lat: 38.8880,
       brewObjList: [],
       lng: -121.0162,
-      resArray: []
+      resArray: [],
+      tourArr:[]
     };
   }
 
@@ -62,9 +64,9 @@ export default class DropdownText extends React.Component {
       });
   }
 
+
   render() {
      let {resArray} = this.state;
-     console.log(resArray);
     return(
       <View>
         <TextInput
@@ -87,6 +89,7 @@ export default class DropdownText extends React.Component {
             </View>)}
         </ScrollView>
         <DisplayBreweries brewObjList={this.state.brewObjList} noBrewMessage={this.state.noBrewMessage} />
+
       </View>
 
     );

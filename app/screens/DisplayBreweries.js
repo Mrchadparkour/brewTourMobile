@@ -1,13 +1,27 @@
 //DisplayBreweries.js
 import React from 'react';
 import {ScrollView, Dimensions, StyleSheet, Image, Text, View} from 'react-native';
+import CreateTour from './CreateTour';
 import MapView from 'react-native-maps';
 import BrewButtons from './BrewButtons';
 
 export default class DisplayBreweries extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      tourArr: []
+    };
+    this.addTour = this.addTour.bind(this);
   }
+
+    addTour(tour) {
+      let newTourArr = this.state.tourArr;
+      newTourArr.push(tour);
+      this.setState({
+        tourArr: newTourArr,
+      });
+    }
 
   render() {
     return ((this.props.brewObjList.length === 0) ? <Text>{this.props.noBrewMessage}</Text> :
@@ -19,10 +33,11 @@ export default class DisplayBreweries extends React.Component {
           <View style={styles.CardDisplay}>
             <Text>{brewObj.brewery.name}</Text>
             <Text>{brewObj.streetAddress}</Text>
-            <BrewButtons lat={brewObj.latitude} lng={brewObj.longitude} name={brewObj.brewery.name} description={brewObj.brewery.description} website={brewObj.brewery.website}/>
+            <BrewButtons brewObj={brewObj}  addTour={this.addTour} />
           </View>
         </View>)}
       </ScrollView>
+      <CreateTour tourArr={this.state.tourArr}/>
     </View>
     );
   }

@@ -20,12 +20,14 @@ export default class BrewButtons extends React.Component {
   }
 
   render() {
-    const {lat, lng, name, description, website} = this.props;
+    const {name, description, website} = this.props.brewObj.brewery;
+    const {latitude, longitude} = this.props.brewObj;
+
     return(
       <View style={styles.container}>
-        <MapModal lat={lat} lng={lng} visible={this.state.modalVisible} toggleMap={this.toggleMap} name={name} description={description} website={website} />
+        <MapModal lat={latitude} lng={longitude} visible={this.state.modalVisible} toggleMap={this.toggleMap} name={name} description={description} website={website} />
         <Button onPress={() => this.toggleMap()} style={styles.MapButton} title="Map"/>
-        <Button onPress={() => alert('Save the brewery!')} style={styles.TourButton} title="Add to Tour"/>
+        <Button onPress={() => this.props.addTour(this.props.brewObj)} style={styles.TourButton} title="Add to Tour"/>
       </View>
     );
   }
