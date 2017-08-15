@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
     display: 'flex',
-    justifyContent: 'space-between',
     height: Dimensions.get('window').height,
   }
 });
