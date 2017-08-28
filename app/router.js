@@ -56,7 +56,6 @@ export const SignedIn = TabNavigator(
 );
 
 export const createRootNavigator = (signedIn) => {
-  console.log(signedIn);
   return StackNavigator(
     {
       SignedIn: {

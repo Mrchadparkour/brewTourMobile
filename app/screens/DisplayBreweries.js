@@ -1,47 +1,33 @@
 //DisplayBreweries.js
 import React from 'react';
 import {ScrollView, Dimensions, StyleSheet, Image, Text, View} from 'react-native';
+import { observer } from 'mobx-react';
 import CreateTour from './CreateTour';
 import MapView from 'react-native-maps';
 import BrewButtons from './BrewButtons';
 
-export default class DisplayBreweries extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tourArr: []
-    };
-    this.addTour = this.addTour.bind(this);
-  }
-
-    addTour(tour) {
-      let newTourArr = this.state.tourArr;
-      newTourArr.push(tour);
-      this.setState({
-        tourArr: newTourArr,
-      });
-    }
-
+const DisplayBreweries = observer(class extends React.Component {
   render() {
-    return ((this.props.brewObjList.length === 0) ? <Text>{this.props.noBrewMessage}</Text> :
+    const store = this.props.store;
+    const { brewObjList, message, tourArr } = store;
+    return ((brewObjList.length === 0) ? <Text>{message}</Text> :
     <View>
       <ScrollView contentContainerStyle={styles.container}>
-      {this.props.brewObjList.map((brewObj, i) =>
+      {brewObjList.map((brewObj, i) =>
         <View style={styles.card} key={brewObj + i}>
           <Image style={styles.breweryLogo} source={{uri: (brewObj.brewery.images) ? brewObj.brewery.images.icon : 'https://facebook.github.io/react/img/logo_og.png'}} />
           <View style={styles.CardDisplay}>
             <Text>{brewObj.brewery.name}</Text>
             <Text>{brewObj.streetAddress}</Text>
-            <BrewButtons brewObj={brewObj}  addTour={this.addTour} />
+            <BrewButtons brewObj={brewObj} store={store}/>
           </View>
         </View>)}
       </ScrollView>
-      <CreateTour tourArr={this.state.tourArr}/>
+      <CreateTour store={store}/>
     </View>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   CardDisplay: {
@@ -72,3 +58,4 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 });
+export default DisplayBreweries;

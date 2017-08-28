@@ -4,30 +4,32 @@
 //Need to add in Marker in map
 import React from 'react';
 import { View, Modal, Button, TouchableHighlight, StyleSheet, Linking, Text } from 'react-native';
+import { observer } from 'mobx-react';
 import MapView from 'react-native-maps';
 
-export default class MapModal extends React.Component {
+const MapModal = observer( class MapModal extends React.Component {
   render() {
-    const {lat, lng, visible, name, description, website} = this.props;
+    const {brewObj, name, description, website} = this.props;
+    const { toggleMap, selectedModal, addTour } = this.props.store;
     const region = {
-      latitude: lat,
-      longitude: lng,
+      latitude: brewObj.latitude,
+      longitude: brewObj.longitude,
       latitudeDelta: 0.0052,
       longitudeDelta: 0.0210,
     }
     const latlng = {
-        latitude: lat,
-        longitude: lng
+        latitude: brewObj.latitude,
+        longitude: brewObj.longitude
       }
     return(
       <View style={styles.ModalBackground}>
         <Modal
              animationType={"slide"}
              transparent={true}
-             visible={this.props.visible}
+             visible={selectedModal === name}
              onRequestClose={() => {alert("Modal has been closed.")}}
         >
-          <TouchableHighlight style={styles.HideModal} onPress={() => this.props.toggleMap()}>
+          <TouchableHighlight style={styles.HideModal} onPress={() => toggleMap('')}>
                  <Text>Hide Modal</Text>
           </TouchableHighlight>
           <View style={styles.container}>
@@ -40,8 +42,8 @@ export default class MapModal extends React.Component {
               title={name}
             />
             </MapView>
-                <View style={styles.RedCircle}>
-                  <Text style={styles.PlusSign}>+Tour</Text>
+                <View style={styles.circle}>
+                  <Text onPress={() => addTour(brewObj)} style={styles.PlusSign}>+Tour</Text>
                 </View>
             <View style={styles.BreweryDescription}>
               <Text style={styles.heading}>{name}</Text>
@@ -57,7 +59,7 @@ export default class MapModal extends React.Component {
 
     );
   }
-}
+})
 
 
 const styles = StyleSheet.create({
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
     width: 300,
     zIndex: 10,
   },
-  RedCircle: {
+  circle: {
     borderRadius: 50,
     backgroundColor: '#F5AB35',
     height: 60,
@@ -121,3 +123,5 @@ const styles = StyleSheet.create({
     zIndex: 20,
   }
 });
+
+export default MapModal;

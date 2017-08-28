@@ -3,35 +3,26 @@
 
 import React from 'react';
 import {View,Text, StyleSheet, Button} from 'react-native';
+import { observer } from 'mobx-react';
 import MapModal from './MapModal';
 
 
-export default class BrewButtons extends React.Component {
-  constructor() {
-    super();
-    this.state={
-      modalVisible:false,
-    };
-    this.toggleMap = this.toggleMap.bind(this);
-  }
-
-   toggleMap() {
-    this.setState({modalVisible: !this.state.modalVisible});
-  }
-
+const BrewButtons = observer( class BrewButtons extends React.Component {
   render() {
-    const {name, description, website} = this.props.brewObj.brewery;
+    const { brewObj } = this.props;
+    const {name, description, website} = brewObj.brewery;
     const {latitude, longitude} = this.props.brewObj;
+    const { addTour, toggleMap } = this.props.store;
 
     return(
       <View style={styles.container}>
-        <MapModal lat={latitude} lng={longitude} visible={this.state.modalVisible} toggleMap={this.toggleMap} name={name} description={description} website={website} />
-        <Button onPress={() => this.toggleMap()} style={styles.MapButton} title="Map"/>
-        <Button onPress={() => this.props.addTour(this.props.brewObj)} style={styles.TourButton} title="Add to Tour"/>
+        <MapModal brewObj={brewObj} store={this.props.store} name={name} description={description} website={website} />
+        <Button onPress={ () => toggleMap(name) } style={styles.MapButton} title="Map"/>
+        <Button onPress={() => addTour(brewObj) } style={styles.TourButton} title="Add to Tour"/>
       </View>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -48,3 +39,4 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+export default BrewButtons;

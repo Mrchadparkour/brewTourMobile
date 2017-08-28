@@ -3,21 +3,20 @@
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { observer } from 'mobx-react';
 
-export default class CreateTour extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+const CreateTour = observer(class CreateTour extends React.Component {
   render() {
       return(
         <View style={styles.TourList}>
-            {this.props.tourArr.map((brewObj, i) => <Text key={brewObj.id}>{brewObj.brewery.name}</Text>)}
+            {
+              this.props.store.tourArr.map((brewObj, i) => <Text key={brewObj.id}>{brewObj.brewery.name}</Text>)
+            }
         </View>
 
       );
     }
-}
+})
 
 const styles = StyleSheet.create({
   TourList: {
@@ -30,3 +29,5 @@ const styles = StyleSheet.create({
     left: 0,
   },
 });
+
+export default CreateTour;
